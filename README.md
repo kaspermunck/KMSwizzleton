@@ -1,5 +1,7 @@
 # KMSwizzleton
 
+An attempt to make unit testing of singleton classes easier.
+
 ## Testing Singletons
 
 The Singleton Design Pattern is a great one when applied following a few [best practices](http://jason.agostoni.net/2012/01/22/ios-best-practices-singletons/). However, unit testing singleton classes is a pain in the ass. I have seen a few decent approaches, such as [property injection](http://twobitlabs.com/2013/01/objective-c-singleton-pattern-unit-testing/) and [overriding using a category](http://stackoverflow.com/questions/5508088/objective-c-category-to-modify-a-singleton-object), but I still find it a hassle to test singletons.
