@@ -11,6 +11,5 @@
 @interface KMSwizzleton : NSObject
 
 + (void)stubSingleton:(Class)singletonClass andReturnFakeInstance:(id)fakeInstance;
-+ (void)revert;
 
 @end
