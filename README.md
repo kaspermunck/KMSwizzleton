@@ -42,6 +42,6 @@ KMSwizzleton is an attempt to make testing of singletons easier. But beware! It 
 NB: It is assumed that singleton classes follow the [sharedInstance pattern](http://www.daveoncode.com/2011/12/19/fundamental-ios-design-patterns-sharedinstance-singleton-objective-c/).
 
 ## TODO
-- Automatically revert swizzling after `+sharedInstance` has been invoked.
+- Revert swizzling if `+sharedInstance` is not invoked in a test case (to maintain state across all test cases).
 - Ability to specify the name of the singleton's instance method when it doesn't follow the sharedInstance-pattern, such as `[NSNotificationCenter defaultcenter]`.
 - Support for inheritance.
