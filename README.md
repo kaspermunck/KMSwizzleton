@@ -35,9 +35,6 @@ KMSwizzleton is an attempt to make testing of singletons easier. But beware! It 
 	
 	// we can now verify whether cut called somethingAwesome on MySingleton or not
 	[fakeSingleton verify];
-	
-	// reset MySingleton's state
-	[KMSwizzleton revert];
 }
 
 ````
