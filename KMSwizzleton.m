@@ -17,6 +17,8 @@ static id _realInstance = nil;
 static Class _realClass = nil;
 
 + (void)stubSingleton:(Class)singletonClass andReturnFakeInstance:(id)fakeInstance {
+    // respondsToSelector sent to a Class fails if sharedInstance is an instance method and not a class method.
+    // see: http://stackoverflow.com/questions/16678141/why-do-class-respondstoselector-and-respondstoselector-behave-different-when-sen
     NSAssert([singletonClass respondsToSelector:@selector(sharedInstance)], nil);
     
     _realClass = singletonClass;
@@ -24,28 +26,28 @@ static Class _realClass = nil;
     _fakeInstance = fakeInstance;
     
     [self swizzleClassMethod:@selector(sharedInstance)
-                     inClass:singletonClass
+                     inRealClass:singletonClass
              withClassMethod:@selector(fakeSharedInstance)
-                     inClass:[self class]];
+                     inFakeClass:[self class]];
 }
 
 + (id)fakeSharedInstance {
-//    [KMSwizzleton revert];
+    [KMSwizzleton revert];
     return _fakeInstance;
 }
 
 + (void)revert {
     [self swizzleClassMethod:@selector(sharedInstance)
-                     inClass:_realClass
+                 inRealClass:_realClass
              withClassMethod:@selector(fakeSharedInstance)
-                     inClass:[self class]];
-    
-    _fakeInstance = nil;
+                 inFakeClass:[self class]];
+
+//    _fakeInstance = nil;
     _realInstance = nil;
     _realClass = nil;
 }
 
-+ (void)swizzleClassMethod:(SEL)orig inClass:(Class)origClass withClassMethod:(SEL)new inClass:(Class)newClass {
++ (void)swizzleClassMethod:(SEL)orig inRealClass:(Class)origClass withClassMethod:(SEL)new inFakeClass:(Class)newClass {
     Method origMethod = class_getClassMethod(origClass, orig);
     Method newMethod = class_getClassMethod(newClass, new);
     if(class_addMethod(origClass, orig, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))

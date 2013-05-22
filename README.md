@@ -47,3 +47,4 @@ NB: It is assumed that singleton classes follow the [sharedInstance pattern](htt
 ## TODO
 - Automatically revert swizzling after `+sharedInstance` has been invoked.
 - Ability to specify the name of the singleton's instance method when it doesn't follow the sharedInstance-pattern, such as `[NSNotificationCenter defaultcenter]`.
+- Support for inheritance.
